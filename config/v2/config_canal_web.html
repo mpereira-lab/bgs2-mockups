@@ -25,6 +25,34 @@
     th{color:var(--muted);font-size:13px;text-transform:uppercase;letter-spacing:.05em}
     input[type=time], input[type=text], select{background:#0f172a;color:var(--fg);border:1px solid #223044;border-radius:6px;padding:4px 6px;font-size:14px}
     input[disabled]{opacity:0.5;cursor:not-allowed}
+    .tooltip {
+      position: relative;
+      display: inline-block;
+      cursor: pointer;
+    }
+
+    .tooltip .tooltiptext {
+      visibility: hidden;
+      width: 160px;
+      background-color: #333;
+      color: #fff;
+      text-align: center;
+      border-radius: 6px;
+      padding: 6px;
+      position: absolute;
+      z-index: 1;
+      bottom: 125%; /* coloca el tooltip arriba */
+      left: 50%;
+      transform: translateX(-50%);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .tooltip:hover .tooltiptext {
+      visibility: visible;
+      opacity: 1;
+    }    
+
   </style>
   <script>
     function toggleCodigoPV(select){
@@ -42,24 +70,31 @@
   <div class="wrap">
     <h1>Configuración Canal WEB</h1>
 
-    <h2>Preferencias de Backoffice</h2>
-    <div class="card">
-      <div class="list">
-        <div class="item">
-          <span class="label">Exportación de apuestas: Omitir usuarios de prueba</span>
-          <div class="chips" contenteditable="false">
-            <input type="text" placeholder="Agregar usuario..." />
-          </div>
-          <p class="help-text">Las apuestas realizadas por los usuarios listados serán <strong>omitidas de la exportación</strong>.</p>
-        </div>
-      </div>
-    </div>
+    <h2>Horarios de operación del canal</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Día</th>
+          <th>Apertura</th>
+          <th>Cierre</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Lunes</td><td><input type="time" value="09:00" /></td><td><input type="time" value="21:00" /></td></tr>
+        <tr><td>Martes</td><td><input type="time" value="09:00" /></td><td><input type="time" value="21:00" /></td></tr>
+        <tr><td>Miércoles</td><td><input type="time" value="09:00" /></td><td><input type="time" value="21:00" /></td></tr>
+        <tr><td>Jueves</td><td><input type="time" value="09:00" /></td><td><input type="time" value="21:00" /></td></tr>
+        <tr><td>Viernes</td><td><input type="time" value="09:00" /></td><td><input type="time" value="21:00" /></td></tr>
+        <tr><td>Sábado</td><td><input type="time" value="09:00" /></td><td><input type="time" value="21:00" /></td></tr>
+        <tr><td>Domingo</td><td><input type="time" value="09:00" /></td><td><input type="time" value="21:00" /></td></tr>
+      </tbody>
+    </table>
 
-    <h2>Preferencias de la Web</h2>
+    <h2>Esquema de ventas</h2>
     <div class="card">
       <div class="list">
         <label class="item">
-          <span class="label">Configuración de la comisión de venta</span>
+          <span class="label">Seleccione esquema de ventas<span class="tooltip">ℹ️<span class="tooltiptext">Esquema Agencia Amiga: cada venta se asociará a la agencia que el apostador haya seleccionado. Esquema Punto de venta de canal web: cada venta se asociará al punto de venta que se muestra en el campo "Código de Punto de Venta"</span></span></span>
           <select onchange="toggleCodigoPV(this)">
             <option value="agencia">Agencia Amiga</option>
             <option value="codigo">Punto de venta de canal web</option>
@@ -70,26 +105,6 @@
           <input type="text" id="codigo-pv" maxlength="12" disabled placeholder="Ej: 000000000001" />
         </label>
       </div>
-
-      <h3>Horarios de operación del canal</h3>
-      <table>
-        <thead>
-          <tr>
-            <th>Día</th>
-            <th>Apertura</th>
-            <th>Cierre</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr><td>Lunes</td><td><input type="time" value="09:00" /></td><td><input type="time" value="21:00" /></td></tr>
-          <tr><td>Martes</td><td><input type="time" value="09:00" /></td><td><input type="time" value="21:00" /></td></tr>
-          <tr><td>Miércoles</td><td><input type="time" value="09:00" /></td><td><input type="time" value="21:00" /></td></tr>
-          <tr><td>Jueves</td><td><input type="time" value="09:00" /></td><td><input type="time" value="21:00" /></td></tr>
-          <tr><td>Viernes</td><td><input type="time" value="09:00" /></td><td><input type="time" value="21:00" /></td></tr>
-          <tr><td>Sábado</td><td><input type="time" value="09:00" /></td><td><input type="time" value="21:00" /></td></tr>
-          <tr><td>Domingo</td><td><input type="time" value="09:00" /></td><td><input type="time" value="21:00" /></td></tr>
-        </tbody>
-      </table>
     </div>
 
   </div>
