@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Configuración generales de quinielas</title>
+  <style>
+    :root { --fg:#e5e7eb; --bg:#0b0f14; --card:#121820; --muted:#9ca3af; --accent:#60a5fa; }
+    body{margin:0;background:var(--bg);color:var(--fg);font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif}
+    .wrap{max-width:1000px;margin:0 auto;padding:24px}
+    h1{font-size:22px;font-weight:600;margin:0 0 12px;color:var(--fg)}
+    h2{font-size:18px;font-weight:600;margin:20px 0 16px;color:var(--fg)}
+    .card{background:var(--card);border:1px solid #1f2937;border-radius:12px;padding:16px;margin-bottom:20px}
+    .field{display:flex;justify-content:space-between;align-items:center;padding:10px 12px;border:1px dashed #223044;border-radius:8px;margin-bottom:10px}
+    .field label{font-size:14px;color:var(--fg)}
+    .field input[type=checkbox]{accent-color:var(--accent)}
+    .field input[type=number], .field select{background:#0f172a;border:1px solid #223044;border-radius:6px;color:var(--fg);padding:4px 8px;font-size:14px;width:180px;text-align:right}
+    table{width:100%;border-collapse:collapse;margin-top:10px}
+    th,td{padding:10px 12px;border-bottom:1px solid #223044;text-align:left;font-size:14px}
+    th{color:var(--muted);font-weight:600}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Configuración de quinielas</h1>
+    <div class="card">
+      <h2>Límite por cifras</h2>
+      <div class="card">
+        <table>
+          <thead>
+            <tr>
+            <th>Concepto</th>
+            <th>Habilitar</th>
+            <th>Importe</th>
+            <th>Margen %</th>
+            <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Límite 1 cifra</td>
+              <td><input type="checkbox" id="check-limite-1cifra" /></td>
+              <td><input type="number" id="limite-1cifra" /></td>
+              <td>-</td>
+              <td>✏️</td>
+            </tr>
+            <tr>
+              <td>Límite 2 cifras</td>
+              <td><input type="checkbox" id="check-limite-2cifras" /></td>
+              <td><input type="number" id="limite-2cifras" /></td>
+              <td><input type="number" id="margen-2cifras" /></td>
+              <td>✏️</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>

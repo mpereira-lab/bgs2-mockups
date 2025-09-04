@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Configuración del canal Agencia</title>
+  <style>
+    :root { --fg:#e5e7eb; --bg:#0b0f14; --card:#121820; --muted:#9ca3af; --accent:#60a5fa; --success:#16a34a; --danger:#dc2626; }
+    html,body{height:100%}
+    body{margin:0;background:var(--bg);color:var(--fg);font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif;}
+    .wrap{max-width:1200px;margin:0 auto;padding:24px}
+    h1{font-size:22px;margin:0 0 12px}
+    .subtitle{color:var(--muted);font-size:13px;margin-bottom:16px}
+    .card{background:var(--card);border:1px solid #1f2937;border-radius:14px;padding:16px;margin-bottom:24px}
+    .list{display:grid;gap:10px}
+    .item{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 12px;border:1px dashed #223044;border-radius:10px}
+    .item input[type=checkbox]{accent-color:var(--accent)}
+    .label{font-size:15px;flex:1}
+    .input-number{width:120px;padding:6px 8px;border-radius:6px;border:1px solid #223044;background:#0f172a;color:var(--fg);font-size:14px}
+    .input-text{flex:1;padding:6px 8px;border-radius:6px;border:1px solid #223044;background:#0f172a;color:var(--fg);font-size:14px}
+    .btn{background:var(--accent);color:white;border:none;border-radius:8px;padding:8px 14px;cursor:pointer;font-size:14px}
+    table{width:100%;border-collapse:collapse;margin-top:12px}
+    th,td{padding:12px 8px;text-align:left;border-bottom:1px solid #223044;font-size:14px}
+    th{color:var(--muted);text-transform:uppercase;font-size:12px;letter-spacing:.05em}
+    td.actions{display:flex;gap:10px}
+    .tag{display:inline-block;padding:2px 8px;border-radius:8px;font-size:12px;font-weight:600}
+    .tag.success{background:#14532d;color:#bbf7d0}
+    .tag.danger{background:#450a0a;color:#fecaca}
+    .icon-btn{background:none;border:none;cursor:pointer;color:var(--muted);font-size:14px}
+    .icon-btn:hover{color:var(--accent)}
+    .time-input{display:flex;align-items:center;background:#0f172a;border:1px solid #223044;border-radius:6px;overflow:hidden}
+    .time-input input{background:transparent;color:var(--fg);border:none;padding:6px 8px;flex:1;font-size:14px}
+    .time-input button{background:var(--accent);border:none;color:#fff;padding:6px;cursor:pointer}
+    .subsection-title{font-size:14px;color:var(--muted);margin:12px 0 8px;text-transform:uppercase;letter-spacing:.05em}
+    .tooltip {
+      position: relative;
+      display: inline-block;
+      cursor: pointer;
+    }
+
+    .tooltip .tooltiptext {
+      visibility: hidden;
+      width: 160px;
+      background-color: #333;
+      color: #fff;
+      text-align: center;
+      border-radius: 6px;
+      padding: 6px;
+      position: absolute;
+      z-index: 1;
+      bottom: 125%; /* coloca el tooltip arriba */
+      left: 50%;
+      transform: translateX(-50%);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .tooltip:hover .tooltiptext {
+      visibility: visible;
+      opacity: 1;
+    }    
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Configuración del canal Terminales</h1>
+
+
+
+    <h2>Preferencias de las Terminales</h2>
+    <div class="card">
+      <div class="subsection-title">General</div>
+      <div class="list">
+        <label class="item"><span class="label">Habilitar sonidos en consulta de premios</span><input type="checkbox" /></label>
+        <label class="item"><span class="label">Frecuencia de cambio en monitor de contenidos (en segundos)</span><input type="number" class="input-number" /></label>
+        <label class="item"><span class="label">Mensaje en Player Display</span><input type="text" class="input-text" /></label>
+        <label class="item"><span class="label">Habilitar modo de apuesta multijuego <span class="tooltip">ℹ️<span class="tooltiptext">Al habilitar esta opción, la terminal permitirá realizar la misma apuesta en varios juegos similares de manera simultánea.Por ejemplo, si jugás en la Quiniela Previa, podés aplicar la misma apuesta automáticamente a las demás quinielas (Matutina, Vespertina, Nocturna, etc.)</span></span></span><input type="checkbox" />
+        </label>
+        <label class="item"><span class="label">Al consultar si un ticket tiene premio, habilitar rejuego<span class="tooltip">ℹ️<span class="tooltiptext">Si está habilitado, cuando se consulte un ticket para verificar si tiene premio, la terminal permitirá ofrecer la opción de repetir la apuesta (rejuego) automáticamente.</span></span></span><input type="checkbox" /></label>
+        <label class="item"><span class="label">Límite de días para emisión de reportes de caja</span><input type="number" class="input-number" /></label>
+
+      </div>
+      <div class="subsection-title">Seguridad</div>
+      <div class="list">
+        <label class="item"><span class="label">Días de validez de la contraseña</span><input type="number" class="input-number" /></label>
+        <label class="item"><span class="label">Intentos fallidos máximos en login</span><input type="number" class="input-number" /></label>
+        <label class="item"><span class="label">Mínimo de caracteres en la contraseña</span><input type="number" class="input-number" /></label>
+      </div>
+      <div class="subsection-title">Restricciones de impresión</div>
+      <div class="list">
+        <label class="item"><span class="label">Límite diario de extractos</span><input type="number" class="input-number" /></label>
+        <label class="item"><span class="label">Límite diario de reportes de caja</span><input type="number" class="input-number" /></label>
+        <label class="item"><span class="label">Límite diario de reportes de caja detallado</span><input type="number" class="input-number" /></label>
+        <label class="item"><span class="label">Imprimir reporte en login</span><input type="checkbox" /></label>
+        <label class="item"><span class="label">Imprimir reporte en logout</span><input type="checkbox" /></label>
+      </div>
+
+      <div class="subsection-title">Premios pendientes</div>
+      <div class="list">
+        <label class="item"><span class="label">Habilitar impresión</span><input type="checkbox" /></label>
+        <label class="item"><span class="label">Habilitar detalles</span><input type="checkbox" /></label>
+        <label class="item"><span class="label">Habilitar reporte al subagente</span><input type="checkbox" /></label>
+      </div>
+
+      <div class="subsection-title">Ticket de Venta</div>
+      <div class="list">
+        <label class="item"><span class="label">Habilidar impresión de código de barras externo</span><input type="checkbox" /></label>
+        <label class="item"><span class="label">Habilidar impresión de ID de ticket en portátiles</span><input type="checkbox" /></label>
+        <label class="item"><span class="label">Habilitar impresión de código de barras reducidos</span><input type="checkbox" /></label>
+        <label class="item"><span class="label">Nombre de la institución </span><input type="text" class="input-text" /></label>
+        <label class="item"><span class="label">Leyenda de impuesto al juego</span><input type="text" class="input-text" /></label>
+        <label class="item"><span class="label">Leyenda de sorteo no ganadores</span><input type="text" class="input-text" /></label>
+      </div>
+      <div class="subsection-title">Ticket de Pago</div>
+      <div class="list">
+        <label class="item"><span class="label">Leyenda de impuesto nacional</span><input type="text" class="input-text" /></label>
+        <label class="item"><span class="label">Leyenda de impuesto provincial</span><input type="text" class="input-text" /></label>
+      </div>
+      <div class="subsection-title">Ticket de Cuenta Apostador ?(o de wallet?)</div>
+      <div class="list">
+        <label class="item"><span class="label">Nombre de plataforma</span><input type="text" class="input-text" /></label>
+        <label class="item"><span class="label">Leyenda en alta de usuario</span><input type="text" class="input-text" /></label>
+      </div>
+      <div class="subsection-title">Ticket de Quinielas instantáneas</div>
+      <div class="list">
+        <label class="item"><span class="label">Imprimir mensaje en ticket ganador</span><input type="checkbox" /></label>
+      </div>
+
+      <div class="subsection-title">Habilitación de Funcionalidades</div>
+      <div class="list">
+        <label class="item"><span class="label">Reporte de límite de ventas</span><input type="checkbox" /></label>
+        <label class="item"><span class="label">Cuenta Apostador </span><input type="checkbox" /></label>
+        <label class="item"><span class="label">Gestion de PIN (para VLT)</span><input type="checkbox" /></label>
+        <label class="item"><span class="label">Monederos externos</span><input type="checkbox" /></label>
+      </div>
+    </div>
+
+    <h1>Preferencias de Transacciones</h1>
+    <div class="card">
+    <div class="subsection-title">Transacciones que impactan en el límite de venta</div>
+    <div class="list">
+    <label class="item"><span class="label">Movimientos de Cuenta Apostador </span><input type="checkbox" /></label>
+    <label class="item"><span class="label">Créditos de monederos externos</span><input type="checkbox" /></label>
+    <label class="item"><span class="label">Venta de PIN (para VLT)</span><input type="checkbox" /></label>
+    </div>
+
+
+    <div class="subsection-title">Configuración de cierre anticipado de Ventas</div>
+    <div class="list">
+    <label class="item">
+    <span class="label">Tipo de cierre anticipado</span>
+    <select>
+    <option value="PV">Por Punto de Venta</option>
+    <option value="PVJ">Por Punto de Venta y Juego</option>
+    </select>
+    </label>
+    </div>
+
+
+    <div class="subsection-title">Control de Vínculos (Link Control)</div>
+    <div class="list">
+    <label class="item"><span class="label">Habilitar Link Control</span><input type="checkbox" /></label>
+    <label class="item"><span class="label">Tiempo de espera (horas)</span><input type="number" class="input-number" placeholder="ej: 2" /></label>
+    </div>
+    </div>
+
+    <h2>Modelos de Terminales</h2>
+    <button class="btn">+ Nuevo Modelo</button>
+    <div class="card">
+      <table>
+        <thead><tr><th>Nombre</th><th>Código Externo</th><th>Código Libra</th><th>Código Cash Manager</th><th>Habilitado</th><th>Acciones</th></tr></thead>
+        <tbody>
+          <tr><td>NEWPOS_800</td><td>NPOS</td><td>LIBRA001</td><td>CASH001</td><td><span class="tag success">Sí</span></td><td class="actions"><button class="icon-btn">✏️</button><button class="icon-btn">🗑️</button></td></tr>
+          <tr><td>QPOS_X3</td><td>QPOS</td><td>-</td><td>-</td><td><span class="tag danger">No</span></td><td class="actions"><button class="icon-btn">✏️</button><button class="icon-btn">🗑️</button></td></tr>
+          <tr><td>VT240</td><td>VT24</td><td>LIBRA002</td><td>CASH002</td><td><span class="tag success">Sí</span></td><td class="actions"><button class="icon-btn">✏️</button><button class="icon-btn">🗑️</button></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2>Configuración de Comunicaciones</h2>
+    <div class="card">
+      <table>
+        <thead><tr><th>Tipo de enlace</th><th>Keep Alive (segundos)</th><th>Reintentos</th><th>Timeout 1</th><th>Timeout 2</th><th>Timeout 3</th><th>Espera entre bloques</th><th>Bloques</th><th>Terminales SW</th><th>Terminales DLL</th><th>Acciones</th></tr></thead>
+        <tbody>
+          <tr><td>X25</td><td>15</td><td>3</td><td>6000</td><td>10000</td><td>15000</td><td>7</td><td>99</td><td>2</td><td>5000</td><td class="actions"><button class="icon-btn">✏️</button></td></tr>
+          <tr><td>UDP</td><td>6</td><td>3</td><td>6000</td><td>10000</td><td>15000</td><td>5</td><td>88</td><td>1</td><td>3000</td><td class="actions"><button class="icon-btn">✏️</button></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2>Monederos Externos</h2>
+    <div class="card">
+      <table>
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Habilitado</th>
+            <th>Depósito Habilitado</th>
+            <th>Retiro Habilitado</th>
+            <th>Apertura</th>
+            <th>Cierre</th>
+            <th>Texto Depósito</th>
+            <th>Texto Retiro</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Alira</td>
+            <td><span class="tag success">Sí</span></td>
+            <td><span class="tag success">Sí</span></td>
+            <td><span class="tag danger">No</span></td>
+            <td>09:00</td>
+            <td>21:00</td>
+            <td>Depósito Alira</td>
+            <td>-</td>
+            <td class="actions">
+              <button class="icon-btn">✏️</button>
+              <button class="icon-btn">🗑️</button>
+            </td>
+          </tr>
+          <tr>
+            <td>Wazubet</td>
+            <td><span class="tag success">Sí</span></td>
+            <td><span class="tag success">Sí</span></td>
+            <td><span class="tag success">Sí</span></td>
+            <td>08:00</td>
+            <td>22:00</td>
+            <td>Depósito Wazubet</td>
+            <td>Retiro Wazubet</td>
+            <td class="actions">
+              <button class="icon-btn">✏️</button>
+              <button class="icon-btn">🗑️</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div style="margin-top:12px; text-align:right;">
+        <button class="btn">+ Crear monedero</button>
+      </div>
+    </div>
+      
+  </div>
+
+
+
+
+</body>
+</html>
