@@ -25,6 +25,7 @@
     th{color:var(--muted);font-size:13px;text-transform:uppercase;letter-spacing:.05em}
     input[type=time], input[type=text], select{background:#0f172a;color:var(--fg);border:1px solid #223044;border-radius:6px;padding:4px 6px;font-size:14px}
     input[disabled]{opacity:0.5;cursor:not-allowed}
+    .input-text{flex:1;padding:6px 8px;border-radius:6px;border:1px solid #223044;background:#0f172a;color:var(--fg);font-size:14px}
   </style>
   <script>
     function toggleCodigoPV(select){
@@ -41,21 +42,6 @@
 <body>
   <div class="wrap">
     <h1>Configuración Canal WEB</h1>
-
-    <h2>Preferencias de Backoffice</h2>
-    <div class="card">
-      <div class="list">
-        <div class="item">
-          <span class="label">Exportación de apuestas: Omitir usuarios de prueba</span>
-          <div class="chips" contenteditable="false">
-            <input type="text" placeholder="Agregar usuario..." />
-          </div>
-          <p class="help-text">Las apuestas realizadas por los usuarios listados serán <strong>omitidas de la exportación</strong>.</p>
-        </div>
-      </div>
-    </div>
-
-    <h2>Preferencias de la Web</h2>
     <div class="card">
       <div class="list">
         <label class="item">
