@@ -14,6 +14,8 @@
     .card{background:var(--card);border:1px solid #1f2937;border-radius:14px;padding:16px;margin-bottom:24px}
     .list{display:grid;gap:10px}
     .item{display:flex;flex-direction:column;gap:6px;padding:10px 12px;border:1px dashed #223044;border-radius:10px}
+    .item.inline{flex-direction:row;align-items:center;justify-content:space-between;}
+    .item.indent{margin-left:24px;}
     .label{font-size:15px;flex:1}
     .chips{display:flex;flex-wrap:wrap;gap:6px;padding:6px;background:#0f172a;border:1px solid #223044;border-radius:6px;cursor:text}
     .chip{background:var(--accent);color:#000;padding:4px 8px;border-radius:12px;display:flex;align-items:center;gap:6px;font-size:14px}
@@ -23,83 +25,35 @@
     table{width:100%;border-collapse:collapse;margin-top:12px}
     th,td{padding:10px;text-align:left;border-bottom:1px solid #223044}
     th{color:var(--muted);font-size:13px;text-transform:uppercase;letter-spacing:.05em}
-    input[type=time], input[type=text], select{background:#0f172a;color:var(--fg);border:1px solid #223044;border-radius:6px;padding:4px 6px;font-size:14px}
+    input[type=time], input[type=text], select, input[type=number]{background:#0f172a;color:var(--fg);border:1px solid #223044;border-radius:6px;padding:4px 6px;font-size:14px}
     input[disabled]{opacity:0.5;cursor:not-allowed}
-    .tooltip {
-      position: relative;
-      display: inline-block;
-      cursor: pointer;
-    }
+    .tooltip { position: relative; display: inline-block; cursor: pointer; }
+    .tooltip .tooltiptext { visibility: hidden; width: 220px; background-color: #333; color: #fff; text-align: center; border-radius: 6px; padding: 6px; position: absolute; z-index: 1; bottom: 125%; left: 50%; transform: translateX(-50%); opacity: 0; transition: opacity 0.3s; }
+    .tooltip:hover .tooltiptext { visibility: visible; opacity: 1; }    
 
-    .tooltip .tooltiptext {
-      visibility: hidden;
-      width: 160px;
-      background-color: #333;
-      color: #fff;
-      text-align: center;
-      border-radius: 6px;
-      padding: 6px;
-      position: absolute;
-      z-index: 1;
-      bottom: 125%; /* coloca el tooltip arriba */
-      left: 50%;
-      transform: translateX(-50%);
-      opacity: 0;
-      transition: opacity 0.3s;
-    }
-
-    .tooltip:hover .tooltiptext {
-      visibility: visible;
-      opacity: 1;
-    }    
-
-
-   .main-label {
-  font-weight: 600;
-  margin-bottom: 4px;
-}
-
-.currency-list {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  margin-left: 20px;   /* sangría para jerarquía */
-  margin-top: 6px;
-}
-
-/* ✅ Fuerza filas (label a la izquierda, input a la derecha) */
-.currency-list .item {
-  display: flex;
-  flex-direction: row;     /* <— clave */
-  align-items: center;
-  gap: 12px;
-}
-
-/* ✅ La etiqueta ocupa el espacio disponible */
-.currency-list .label {
-  flex: 1;
-  font-weight: 500;
-}
-
-/* ✅ El input se pega a la derecha y alinea el número */
-.currency-list .input-number2 {
-  width: 140px;           /* o el ancho que prefieras */
-  margin-left: auto;      /* empuja hacia la derecha */
-  text-align: right;
-}
-
-
-
-
+   .main-label { font-weight: 600; margin-bottom: 4px; }
+   .currency-list { display: flex; flex-direction: column; gap: 6px; margin-left: 20px; margin-top: 6px; }
+   .currency-list .item { display: flex; flex-direction: row; align-items: center; gap: 12px; }
+   .currency-list .label { flex: 1; font-weight: 500; }
+   .currency-list .input-number2 { width: 140px; margin-left: auto; text-align: right; }
   </style>
   <script>
     function toggleCodigoPV(select){
       const input = document.getElementById('codigo-pv');
-      if(select.value === 'agencia'){
+      if (select.value === 'agencia' || select.value === 'agencia_no_requerida') {
+        input.disabled = false;
+      } else {
         input.disabled = true;
         input.value = '';
-      } else {
-        input.disabled = false;
+      }
+    }
+
+    function toggleWithdrawAgency(){
+      const parent = document.getElementById('withdraw-at-agency-enabled');
+      const child = document.getElementById('withdraw-at-agency-deposited-enabled');
+      child.disabled = !parent.checked;
+      if(!parent.checked){
+        child.checked = false;
       }
     }
   </script>
@@ -107,6 +61,29 @@
 <body>
   <div class="wrap">
     <h1>Configuración Canal WEB</h1>
+
+    <h2>General</h2>
+    <div class="card">
+      <div class="list">
+        <label class="item inline">
+          <span class="label">Geolocalización habilitada</span>
+          <input type="checkbox" id="general-geolocation-enabled" />
+        </label>
+        <label class="item">
+          <span class="label">Días de autoexclusión (Juego Responsable)</span>
+          <select id="general-self-exclusion-days">
+            <option value="5">5</option>
+            <option value="10">10</option>
+            <option value="15">15</option>
+            <option value="20">20</option>
+          </select>
+        </label>
+        <label class="item">
+          <span class="label">Usuarios para healthcheck</span>
+          <input type="text" id="general-healthcheck-users" placeholder="ej: user1,user2" />
+        </label>
+      </div>
+    </div>
 
     <h2>Horarios de operación del canal</h2>
     <table>
@@ -132,10 +109,11 @@
     <div class="card">
       <div class="list">
         <label class="item">
-          <span class="label">Seleccione esquema de ventas<span class="tooltip">ℹ️<span class="tooltiptext">Esquema Agencia Amiga: cada venta se asociará a la agencia que el apostador haya seleccionado. Esquema Punto de venta de canal web: cada venta se asociará al punto de venta que se muestra en el campo "Código de Punto de Venta"</span></span></span>
+          <span class="label">Seleccione esquema de ventas<span class="tooltip">ℹ️<span class="tooltiptext">Esquema Agencia Amiga: cada ticket se asociará a la agencia que el apostador haya seleccionado.<br><br>Esquema Punto de venta de canal web: cada ticket se asociará al punto de venta que se muestra en el campo "Código de Punto de Venta".<br><br>Esquema Agencia Amiga (no requerida): el usuario podrá elegir una agencia amiga, pero no será obligatorio. En caso de no seleccionar ninguna, se tomará el punto de venta de canal web para asociarlo al ticket.</span></span></span>
           <select onchange="toggleCodigoPV(this)">
-            <option value="agencia">Agencia Amiga</option>
             <option value="codigo">Punto de venta de canal web</option>
+            <option value="agencia">Agencia Amiga</option>
+            <option value="agencia_no_requerida">Agencia Amiga (no requerida)</option>
           </select>
         </label>
         <label class="item">
@@ -145,29 +123,68 @@
       </div>
     </div>
 
+    <h2>Pasarela de pagos</h2>
+    <div class="card">
+      <div class="list">
+        <label class="item inline">
+          <span class="label">Pagos360 habilitado <span class="tooltip">ℹ️<span class="tooltiptext">Permite aceptar pagos a través de la pasarela Pagos360</span></span></span>
+          <input type="checkbox" id="payment-pagos360-enabled" />
+        </label>
+        <label class="item inline">
+          <span class="label">PlusPagos habilitado <span class="tooltip">ℹ️<span class="tooltiptext">Permite aceptar pagos mediante la pasarela PlusPagos</span></span></span>
+          <input type="checkbox" id="payment-pluspagos-enabled" />
+        </label>
+        <label class="item inline">
+          <span class="label">Weigo Payment habilitado <span class="tooltip">ℹ️<span class="tooltiptext">Permite aceptar pagos en línea a través de Weigo Payment</span></span></span>
+          <input type="checkbox" id="payment-weigo-payment-enabled" />
+        </label>
+        <label class="item inline">
+          <span class="label">MercadoPago habilitado <span class="tooltip">ℹ️<span class="tooltiptext">Permite aceptar pagos usando la plataforma MercadoPago</span></span></span>
+          <input type="checkbox" id="payment-mercadopago-enabled" />
+        </label>
+      </div>
+    </div>
+
+    <h2>Retiros de dinero</h2>
+    <div class="card">
+      <div class="list">
+        <label class="item inline">
+          <span class="label">Retiro en Agencia habilitado <span class="tooltip">ℹ️<span class="tooltiptext">Permite al usuario retirar dinero directamente en la agencia</span></span></span>
+          <input type="checkbox" id="withdraw-at-agency-enabled" onchange="toggleWithdrawAgency()" />
+        </label>
+        <label class="item inline indent">
+          <span class="label">Retiro en Agencia (depositado) habilitado <span class="tooltip">ℹ️<span class="tooltiptext">Permite al usuario retirar dinero en agencia si el dinero fue previamente depositado</span></span></span>
+          <input type="checkbox" id="withdraw-at-agency-deposited-enabled" disabled />
+        </label>
+        <label class="item inline">
+          <span class="label">Transferencia habilitada <span class="tooltip">ℹ️<span class="tooltiptext">Permite al usuario retirar dinero mediante transferencia bancaria</span></span></span>
+          <input type="checkbox" id="withdraw-transfer-enabled" />
+        </label>
+      </div>
+    </div>
+
     <h2>Preferencias en Transacciones</h2>
     <div class="card">
-  <div class="subsection-title">Transacciones de PAGOS de PREMIOS</div>
-  <div class="list">
-    <label class="item main-label">
-      <span class="label">
-        Importe de premios (UIF) a partir del cual se requiere documentación en el pago
-      </span>
-    </label>
+      <div class="subsection-title">Transacciones de PAGOS de PREMIOS</div>
+      <div class="list">
+        <label class="item main-label">
+          <span class="label">
+            Importe de premios (UIF) a partir del cual se requiere documentación en el pago
+          </span>
+        </label>
 
-    <div class="currency-list">
-      <label class="item">
-        <span class="label">Pesos</span>
-        <input type="number" id="importe-uif-ars" class="input-number2" placeholder="ej: 100000" />
-      </label>
-      <label class="item">
-        <span class="label">Dólares</span>
-        <input type="number" id="importe-uif-usd" class="input-number2" placeholder="ej: 500" />
-      </label>
+        <div class="currency-list">
+          <label class="item">
+            <span class="label">Pesos</span>
+            <input type="number" id="importe-uif-ars" class="input-number2" placeholder="ej: 100000" />
+          </label>
+          <label class="item">
+            <span class="label">Dólares</span>
+            <input type="number" id="importe-uif-usd" class="input-number2" placeholder="ej: 500" />
+          </label>
+        </div>
+      </div>
     </div>
-  </div>
-</div>
-
 
   </div>
 </body>
