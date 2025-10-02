@@ -40,14 +40,12 @@
   <script>
     function toggleCodigoPV(select){
       const input = document.getElementById('codigo-pv');
-      if (select.value === 'agencia' || select.value === 'agencia_no_requerida') {
-        input.disabled = false;
-      } else {
-        input.disabled = true;
-        input.value = '';
+        if (select.value === 'agencia') {
+          input.value = '';
+        } else {
+          input.value = '007002000000';
       }
     }
-
     function toggleWithdrawAgency(){
       const parent = document.getElementById('withdraw-at-agency-enabled');
       const child = document.getElementById('withdraw-at-agency-deposited-enabled');
@@ -79,7 +77,7 @@
           </select>
         </label>
         <label class="item">
-          <span class="label">Usuarios para healthcheck</span>
+          <span class="label">Usuarios para pruebas en cdc</span>
           <input type="text" id="general-healthcheck-users" placeholder="ej: user1,user2" />
         </label>
       </div>
@@ -118,7 +116,7 @@
         </label>
         <label class="item">
           <span class="label">Código de Punto de Venta (12 caracteres)</span>
-          <input type="text" id="codigo-pv" maxlength="12" disabled placeholder="Ej: 000000000001" />
+          <input type="text" id="codigo-pv" maxlength="12" disabled value="007002000000"/>
         </label>
       </div>
     </div>
